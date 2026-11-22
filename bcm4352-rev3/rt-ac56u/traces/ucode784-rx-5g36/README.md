@@ -53,6 +53,10 @@ SPR n is MMIO 0x400 + 2n.
   - pdtrace's history mode, `3000 0x60000006 ADDR 0x0418`: rows 0-1499 come before the mark (FRAMELEN reaching 6), and rows 1500-2999 after it. So each capture covers the idle state before the frame, the PLCP, the frame, the push and the return to idle.
   - `addr ADDR MAX` heads each capture; MAX 0 means no matching frame within 8 tries.
   - MAC addresses are redacted as `xxxx` (mostly at 0x5D2-0x5D8).
+- **`regwatch-600.txt`**: every change of 73 addresses (the ones that move in the full matrix, without timers), 12 groups of FRAMELEN plus 6 (`regwatch-groups.txt`), 300 ms each, ~10 us per pass, while the PC pings 600 bytes every 30 ms.
+  - Each row is `tsf-us address value`; address `ffff` marks an interrupt gap.
+  - Captured with aleferri/b43-tools#5 (`capture/watch.sh`); read it with `capture/frames.py`.
+  - MAC addresses redacted.
 - **`scripts/pdmshow.py`, `scripts/pdlshow.py`**: print the value changes of each capture against FRAMELEN.
 
 MAC addresses are redacted as `xxxx`:

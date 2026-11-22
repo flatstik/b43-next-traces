@@ -48,6 +48,11 @@ SPR n is MMIO 0x400 + 2n.
   - Command: `1500 0x40000006 ADDR 0x0418`. RA is the register; RB is FRAMELEN, and sampling starts when FRAMELEN reaches 6 (the mark).
   - Of up to five tries per register, the capture with the longest frame is kept (53 of 62 have one over 0x300 bytes). `addr ADDR MAX` heads each capture.
   - `scripts/rxmshow.py` prints each register's changes against FRAMELEN.
+- **`pdtrace-full-matrix-600.txt`** (`scripts/rxfm.sh`, `scripts/rxfm-remote.sh`):
+  - Every MMIO address 0x400-0x7FE except the data ports (0x422, 0x432, 0x540, 0x542, 0x560, 0x562) and the TX status FIFO (0x518-0x51E), sampled with FRAMELEN on single 600-byte ping frames to us (FRAMELEN peaks at 0x29C-0x2A4).
+  - pdtrace's history mode, `3000 0x60000006 ADDR 0x0418`: rows 0-1499 come before the mark (FRAMELEN reaching 6), and rows 1500-2999 after it. So each capture covers the idle state before the frame, the PLCP, the frame, the push and the return to idle.
+  - `addr ADDR MAX` heads each capture; MAX 0 means no matching frame within 8 tries.
+  - MAC addresses are redacted as `xxxx` (mostly at 0x5D2-0x5D8).
 - **`scripts/pdmshow.py`, `scripts/pdlshow.py`**: print the value changes of each capture against FRAMELEN.
 
 MAC addresses are redacted as `xxxx`:

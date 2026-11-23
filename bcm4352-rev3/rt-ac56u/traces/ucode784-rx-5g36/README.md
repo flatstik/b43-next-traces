@@ -59,6 +59,11 @@ SPR n is MMIO 0x400 + 2n.
   - MAC addresses redacted.
 - **`regwatch-263-600.txt`, `regwatch-263-1000.txt`**: FRAMELEN with SPR 0x263 / 0x265 / 0x271 (MMIO 0x8C6 / 0x8CA / 0x8E2), FIFOCTL1, the RX status, the drain counters (0x424 / 0x42A), SPR 0x00E and the mark (0x454), during 600- and 1000-byte pings (`regwatch-263-groups.txt`).
   - SPR 0x263 reads 0x1000 throughout, with no change before, during or after any frame.
+- **`regwatch-06c-600.txt`**: FRAMELEN with SPR 0x06C (MMIO 0x4D8), SPR 0x00E (0x41C), SPR 0x271 (0x8E2), SPR_BRC (0x490), FIFOCTL1 (0x408), the mark (0x454), WEP_CTL (0x7C0) and the RX status (0x41A), during 600-byte pings (`regwatch-06c-groups.txt`).
+  - SPR 0x06C reads 0x0000, 0x0020, 0x0080, 0x00A0 and 0x0004, never with bit 3 set. SPR 0x00E goes from 0x0800 to 0x4400 at FRAMELEN 0x26.
+- **`regwatch-240-600.txt`**: FRAMELEN with SPR 0x240 (MMIO 0x880), SPR 0x260 (0x8C0), the RX status, FIFOCTL1 and SPR_BRC during 600-byte pings (`regwatch-240-groups.txt`).
+  - SPR 0x240 builds up through the MAC header: 0x0008 at FRAMELEN 0x0E, 0x0018 at 0x16, 0x0028 at 0x1E, 0x0031 at 0x26.
+  - 784.2 waits after the mark for bit 0 before its frame-end steps (aleferri/b43-tools#6, `--hdr240`).
 - **`scripts/pdmshow.py`, `scripts/pdlshow.py`**: print the value changes of each capture against FRAMELEN.
 
 MAC addresses are redacted as `xxxx`:

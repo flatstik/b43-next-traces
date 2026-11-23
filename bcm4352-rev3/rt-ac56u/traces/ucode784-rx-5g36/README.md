@@ -57,6 +57,8 @@ SPR n is MMIO 0x400 + 2n.
   - Each row is `tsf-us address value`; address `ffff` marks an interrupt gap.
   - Captured with aleferri/b43-tools#5 (`capture/watch.sh`); read it with `capture/frames.py`.
   - MAC addresses redacted.
+- **`regwatch-263-600.txt`, `regwatch-263-1000.txt`**: FRAMELEN with SPR 0x263 / 0x265 / 0x271 (MMIO 0x8C6 / 0x8CA / 0x8E2), FIFOCTL1, the RX status, the drain counters (0x424 / 0x42A), SPR 0x00E and the mark (0x454), during 600- and 1000-byte pings (`regwatch-263-groups.txt`).
+  - SPR 0x263 reads 0x1000 throughout, with no change before, during or after any frame.
 - **`scripts/pdmshow.py`, `scripts/pdlshow.py`**: print the value changes of each capture against FRAMELEN.
 
 MAC addresses are redacted as `xxxx`:
